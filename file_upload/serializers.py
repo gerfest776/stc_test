@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from file_upload.models import File, FileInfo
 from file_upload.service.get_filename import get_filename
+from file_upload.service.get_size import convert_size
 
 
 class FileSerializer(serializers.ModelSerializer):
@@ -17,7 +18,7 @@ class FileSerializer(serializers.ModelSerializer):
         FileInfo.objects.create(
             file=current_file.instance,
             name=get_filename(current_file.name),
-            size=current_file.size,
+            size=convert_size(current_file.size),
             type=current_file.name.split(".")[-1],
         )
 

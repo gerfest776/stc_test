@@ -1,0 +1,17 @@
+version: "3.8"
+
+  db:
+    image: postgres:13-alpine
+    container_name: db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=stc
+      - POSTGRES_USER=stc
+      - POSTGRES_PASSWORD=stc
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+volumes:
+  db-data:

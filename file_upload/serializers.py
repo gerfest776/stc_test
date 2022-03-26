@@ -27,3 +27,9 @@ class FileSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = {"id": instance.id}
         return representation
+
+
+class FileInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FileInfo
+        exclude = ("file",)

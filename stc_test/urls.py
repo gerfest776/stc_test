@@ -17,7 +17,7 @@ class APISchemeGenerator(OpenAPISchemaGenerator):
 def get_swagger() -> Any:
     swagger = get_schema_view(
         openapi.Info(
-            title="Analyzer API",
+            title="Upload API",
             default_version="v1",
             contact=openapi.Contact(email="email"),
         ),

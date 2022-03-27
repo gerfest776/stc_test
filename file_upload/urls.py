@@ -6,5 +6,4 @@ router = DefaultRouter(trailing_slash=False)
 router.register("file", views.FileViewSet)
 
 urlpatterns = []
-
 urlpatterns += router.urls

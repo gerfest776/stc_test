@@ -1,0 +1,21 @@
+[
+  {
+    "model": "file_upload.File",
+    "pk": 1,
+    "fields": {
+      "file": "123.png"
+    }
+  },
+  {
+    "model": "file_upload.FileInfo",
+    "pk": 1,
+    "fields": {
+      "file_id": 1,
+      "name": 123,
+      "size": "2.21MB",
+      "type": "png",
+      "upload_data": "2022-02-06 06:08:33.264036 +00:00"
+    }
+  }
+
+]

@@ -1,0 +1,54 @@
+version: '3.8'
+
+x-settings: &global
+  environment:
+    - ALLOWED_HOSTS='*'
+    - SECRET_KEY=stc
+    - DEBUG=False
+    - POSTGRES_PASSWORD=stc
+    - POSTGRES_USER=stc
+    - POSTGRES_DB=stc
+    - PGDATA=/var/lib/postgresql/data
+    - DB_NAME=stc
+    - DB_USER=stc
+    - DB_PASSWORD=stc
+    - DB_HOST=database
+    - DB_PORT=5432
+
+services:
+  api:
+    container_name: api
+    command: gunicorn stc_test.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 8000
+
+    <<: *global
+    depends_on:
+      - database
+
+  database:
+    image: postgres:13.4
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    <<: *global
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./static:/var/www/stc/static
+      - ./media:/var/www/stc/media
+    ports:
+      - 8000:80
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

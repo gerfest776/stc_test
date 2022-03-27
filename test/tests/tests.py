@@ -7,7 +7,7 @@ from django.core.files import File
 from django.test import override_settings
 from rest_framework import status
 from rest_framework.reverse import reverse
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APIClient, APITestCase
 
 
 class TestCaseWithData(APITestCase):
@@ -37,11 +37,6 @@ class TestResponse(TestCaseWithData):
     @override_settings(MEDIA_ROOT=Path(tempfile.gettempdir()))
     def test_send_file(self):
         image_mock = mock.MagicMock(spec=File)
-        image_mock.name = 'image.png'
+        image_mock.name = "image.png"
         client = APIClient()
-        client.post(
-            '/endpoint/',
-            {'file': image_mock},
-            format="multipart"
-        )
-
+        client.post("/endpoint/", {"file": image_mock}, format="multipart")

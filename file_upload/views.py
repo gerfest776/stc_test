@@ -1,6 +1,6 @@
 import os
 
-from django.http import FileResponse, HttpResponse, Http404
+from django.http import Http404, HttpResponse
 from rest_framework.decorators import action
 from rest_framework.mixins import CreateModelMixin, ListModelMixin
 from rest_framework.viewsets import GenericViewSet
@@ -19,7 +19,7 @@ class FileViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         if self.action == "info":
             return FileInfo.objects.all()
         if self.action == "download":
-            return File.objects.filter(id=self.kwargs['pk']).first()
+            return File.objects.filter(id=self.kwargs["pk"]).first()
         else:
             return self.queryset
 
@@ -38,8 +38,12 @@ class FileViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         obj = self.get_queryset()
         if obj:
             filename = obj.file.path
-            with open(filename, 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filename)
+            with open(filename, "rb") as fh:
+                response = HttpResponse(
+                    fh.read(), content_type="application/vnd.ms-excel"
+                )
+                response[
+                    "Content-Disposition"
+                ] = "inline; filename=" + os.path.basename(filename)
                 return response
         raise Http404

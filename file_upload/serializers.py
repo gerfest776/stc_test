@@ -32,4 +32,4 @@ class FileSerializer(serializers.ModelSerializer):
 class FileInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileInfo
-        exclude = ("file",)
+        exclude = ("id",)
